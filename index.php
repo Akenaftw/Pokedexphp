@@ -18,9 +18,19 @@ $pokemonDescription =
         $pokeOrder = $pokemon['id'],
         $pokeName = $pokemon['name'],
         $pokeSprite = $pokemon['sprites']['front_default'],
-        $pokeMoves = $pokemon['moves'][0]['move']['name'],
+        $pokeMoves = randomMoves($pokemon['moves']),
         $pokeType = $pokemon['types'][0]['type']['name']
     );
+
+function randomMoves($allMoves){
+    $amountToDisplay = min(4, sizeof($allMoves));
+    $moveNames = "";
+    for ($i=0; $i<$amountToDisplay; $i++){
+        $randomNumber = rand(0,sizeof($allMoves));
+        $moveNames .= $allMoves[$randomNumber]['move']['name']. ", ";
+    }
+        return $moveNames;
+}
 ?>
 
 <!doctype html>
@@ -43,7 +53,7 @@ $pokemonDescription =
 <div class="name">
     <?php echo $pokeName; ?>
 </div>
-<img src="<?php echo $pokeSprite ?>">
+<img src="<?php echo $pokeSprite ?>" alt="picture of the pokemon">
 <div class="types">
     <?php echo $pokeType ?>
 </div>
