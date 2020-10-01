@@ -10,6 +10,9 @@ if(empty($_POST["id"])){
 }
 else {
     $pokemons = file_get_contents("https://pokeapi.co/api/v2/pokemon/" . $_POST["id"] . "");
+
+
+
 }
 
 $pokemon = json_decode($pokemons, true);
@@ -29,7 +32,6 @@ $evochainarray =
     array(
     $pokeevochain = $evochain['evolution_chain']['url']
     );
-echo $pokeevochain;
 
 $evolutionjson = file_get_contents($pokeevochain);
 $evolution = json_decode($evolutionjson,true);
@@ -37,8 +39,6 @@ $evoarray =
     array(
       $pokeevolutionname = $evolution['chain']['evolves_to'][0]['evolves_to'][0]['species']['name']
     );
-
-echo $pokeevolutionname;
 
 
 // make loop work and get the names first
@@ -54,6 +54,10 @@ function randomMoves($allMoves){
         $moveNames .= $allMoves[$randomNumber]['move']['name']. ", ";
     }
         return $moveNames;
+}
+
+function evolutionGenerator(){
+$displayamount = min(sizeof());
 }
 ?>
 
@@ -79,12 +83,15 @@ function randomMoves($allMoves){
 </div>
 <img src="<?php echo $pokeSprite ?>" alt="picture of the pokemon">
 <div class="types">
-    <?php echo $pokeType ?>
+    <?php echo $pokeType; ?>
 </div>
 <div class="moves">
-    <?php echo $pokeMoves ?>
+    <?php echo $pokeMoves; ?>
 </div>
 <div class="evolutions">
+    evolves to:
+    <?php //add if else statement so that if the pokemon has no evolutions it doensn't generate errors.
+     echo $pokeevolutionname; ?>
 </div>
 </body>
 </html>
