@@ -19,14 +19,38 @@ $pokemonDescription =
         $pokeName = $pokemon['name'],
         $pokeSprite = $pokemon['sprites']['front_default'],
         $pokeMoves = randomMoves($pokemon['moves']),
-        $pokeType = $pokemon['types'][0]['type']['name']
+        $pokeType = $pokemon['types'][0]['type']['name'],
+        $pokespecy = $pokemon['species']['url']
     );
+
+$evolutionchain = file_get_contents($pokespecy);
+$evochain = json_decode($evolutionchain,true);
+$evochainarray =
+    array(
+    $pokeevochain = $evochain['evolution_chain']['url']
+    );
+echo $pokeevochain;
+
+$evolutionjson = file_get_contents($pokeevochain);
+$evolution = json_decode($evolutionjson,true);
+$evoarray =
+    array(
+      $pokeevolutionname = $evolution['chain']['evolves_to'][0]['evolves_to'][0]['species']['name']
+    );
+
+echo $pokeevolutionname;
+
+
+// make loop work and get the names first
+// try to get a string with all the names, and then onclick fill in the names in the url. nested array
+//watch out for eve non nested evolutions
+
 
 function randomMoves($allMoves){
     $amountToDisplay = min(4, sizeof($allMoves));
     $moveNames = "";
     for ($i=0; $i<$amountToDisplay; $i++){
-        $randomNumber = rand(0,sizeof($allMoves));
+        $randomNumber = rand(0,sizeof($allMoves)-1);
         $moveNames .= $allMoves[$randomNumber]['move']['name']. ", ";
     }
         return $moveNames;
@@ -59,6 +83,8 @@ function randomMoves($allMoves){
 </div>
 <div class="moves">
     <?php echo $pokeMoves ?>
+</div>
+<div class="evolutions">
 </div>
 </body>
 </html>
